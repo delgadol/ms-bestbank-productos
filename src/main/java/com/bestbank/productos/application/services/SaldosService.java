@@ -9,7 +9,7 @@ import com.bestbank.productos.infrastructure.persistence.SaldoRepositoryImpl;
 import reactor.core.publisher.Mono;
 
 @Service
-public class SaldosService extends SaldoRepositoryImpl{
+public class SaldosService extends SaldoRepositoryImpl {
 
   public SaldosService(SaldoRespository saldoRepo) {
     super(saldoRepo);

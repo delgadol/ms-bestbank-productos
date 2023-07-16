@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class ProductoModReq extends ProductoReq{
+@EqualsAndHashCode(callSuper = false)
+public class ProductoModReq extends ProductoReq {
 
   private Optional<Double> comision;
   

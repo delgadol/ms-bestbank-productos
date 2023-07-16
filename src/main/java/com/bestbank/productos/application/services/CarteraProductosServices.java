@@ -27,19 +27,23 @@ public class CarteraProductosServices extends DataProductoRepoImpl{
     ProductoCartera carteraProd = null;
     if (itemData != null) {
       carteraProd = new ProductoCartera();
-      carteraProd.setComision((Double)itemData.get("comision"));
-      carteraProd.setGrupoProducto((GrupoProducto)itemData.get("grupoProducto"));
-      carteraProd.setMaxOperacionesMes((Integer)itemData.get("maxOperacionesMes"));
-      carteraProd.setMaxProdEmpresarial((Integer)itemData.get("maxProdEmpresarial"));
-      carteraProd.setMaxProdPersonal((Integer)itemData.get("maxProdPersonal"));
-      carteraProd.setMinDiaMesOperacion((Integer)itemData.get("minDiaMesOperacion"));
-      carteraProd.setMinSaldoMensual((Integer)itemData.get("minSaldoMensual"));
+      carteraProd.setComision((Double) itemData.get("comision"));
+      carteraProd.setGrupoProducto((GrupoProducto) itemData.get("grupoProducto"));
+      carteraProd.setMaxOperacionesMes((Integer) itemData.get("maxOperacionesMes"));
+      carteraProd.setMaxProdEmpresarial((Integer) itemData.get("maxProdEmpresarial"));
+      carteraProd.setMaxProdPersonal((Integer) itemData.get("maxProdPersonal"));
+      carteraProd.setMinDiaMesOperacion((Integer) itemData.get("minDiaMesOperacion"));
+      carteraProd.setMinSaldoMensual((Double) itemData.get("minSaldoMensual"));
       @SuppressWarnings("unchecked")
       List<TipoProducto> prodPrevios = (List<TipoProducto>) itemData.get("reqPrevios");
       carteraProd.setReqPrevios(prodPrevios);
       carteraProd.setTipoProducto(tipoProducto);
+      /** Nuevos Valores **/
+      carteraProd.setCostExtraOperacionesMes((Double) itemData.get("costExtraOperacionesMes"));
+      carteraProd.setCostMinSaldoMensual((Double) itemData.get("costMinSaldoMensual"));      
     }
-    return (tipoProducto == null?Mono.error(new Throwable("Producto Desconocido")):Mono.just(carteraProd));
+    return (tipoProducto == null ? Mono.error(new Throwable("Producto Desconocido"))
+        : Mono.just(carteraProd));
   }
 
 }

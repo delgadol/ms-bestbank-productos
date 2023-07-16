@@ -38,7 +38,8 @@ public class ProductosApplication {
   
   private final SaldosService servSaldo;
   
-  public ProductosApplication(ProductosService servProd, CarteraProductosServices servCartera, 
+  public ProductosApplication(ProductosService servProd, 
+      CarteraProductosServices servCartera, 
       SaldosService servSaldo) {
     this.servProd = servProd;
     this.servCartera = servCartera;
@@ -56,7 +57,8 @@ public class ProductosApplication {
           return servCartera.getValoresCarteraPorTipoID(producto.getTipoProducto())
               .flatMap( carteraProd -> {
                 /** seteamos el tipo de Cliente **/
-                ProductoCartera carteraProdToServ = ModelMapperUtils.map(carteraProd,ProductoCartera.class);
+                ProductoCartera carteraProdToServ = ModelMapperUtils.map(
+                    carteraProd, ProductoCartera.class);
                 carteraProdToServ.setTipoCliente(clienteApi.getTipoCliente());
                 ProductoServicioTool servProdTool = new ProductoServicioTool();
                 servProdTool.setCarteraProd(carteraProd);
@@ -76,9 +78,13 @@ public class ProductosApplication {
                 nuevoProducto.setTipoProducto(producto.getTipoProducto());
                 nuevoProducto.setFechaCreacion(BankFnUtils.getDateTime());
                 nuevoProducto.setFechaActualizacion(BankFnUtils.getDateTime());
+                /** Nuevos Valores **/
+                nuevoProducto.setMinSaldoMensual(carteraProd.getMinSaldoMensual());
+                nuevoProducto.setCostExtraOperacionesMes(carteraProd.getCostExtraOperacionesMes());
+                nuevoProducto.setCostMinSaldoMensual(carteraProd.getCostMinSaldoMensual());
                 /** Mapeamos los Campos Basicos **/
                 return servProdTool.save(nuevoProducto).
-                    flatMap( productoDB -> {
+                    flatMap(productoDB -> {
                       return Mono.just(ModelMapperUtils.map(productoDB, ProductoRes.class));
                     });
               });
@@ -87,6 +93,7 @@ public class ProductosApplication {
   
   /**
    * Actualiza un producto existente con la información proporcionada.
+   * 
    * @param idProducto el identificador del producto a actualizar
    * @param producto la información actualizada del producto
    * @return un Mono que emite el objeto ProductoRes resultante
@@ -192,13 +199,17 @@ public class ProductosApplication {
                   .filter(producto -> producto.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
                   .flatMap(prodOK -> {
                     Producto modProducto = ModelMapperUtils.map(prodOK, Producto.class);
+                    if(!(modProducto.getTipoCliente().equals(TipoCliente.EMPRESARIAL) 
+                        && modProducto.getGrupoProducto().equals(GrupoProducto.PASIVOS))) {
+                      throw new RuntimeException("Cuenta no Admite adicionales");
+                    };
                     int existePersona = modProducto.getPersonaRoles()
                       .stream()
-                      .filter( x -> x.getCodigoPersona().equals(personaRol.getCodigoPersona()))
+                      .filter( x -> x.getCodigoPersona()
+                          .equals(personaRol.getCodigoPersona()))
                       .toList()
                       .size();
-                    if (existePersona == 0 && modProducto.getTipoCliente().equals(TipoCliente.EMPRESARIAL) 
-                        && modProducto.getGrupoProducto().equals(GrupoProducto.PASIVOS)) {
+                    if (existePersona == 0 ) {
                       modProducto.getPersonaRoles().add(personaRol);
                     }else {
                       throw new RuntimeException("Cliente ya esta registrado");

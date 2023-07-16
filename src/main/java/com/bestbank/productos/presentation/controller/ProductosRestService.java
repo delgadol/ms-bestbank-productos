@@ -53,7 +53,7 @@ public class ProductosRestService {
    * @return un Mono que emite el objeto ProductoRes correspondiente al ID proporcionado
    */
   @GetMapping("/{idProducto}")
-  public Mono<ProductoRes> getProductById(@PathVariable(name="idProducto") String idProducto){
+  public Mono<ProductoRes> getProductById(@PathVariable(name = "idProducto") String idProducto){
     return servProdApp.getProductById(idProducto);
   }
   
@@ -64,8 +64,9 @@ public class ProductosRestService {
    * @return un Flux que emite objetos ProductoRes relacionados al cliente
    */
   @GetMapping("/{idPersona}/cliente")
-  public Flux<ProductoRes> getAllProductByClient(@PathVariable(name="idPersona") String idPErsona){
-    return servProdApp.getAllProductByClientId(idPErsona);
+  public Flux<ProductoRes> getAllProductByClient(
+      @PathVariable(name = "idPersona") String idPersona) {
+    return servProdApp.getAllProductByClientId(idPersona);
   }
   
   /**
@@ -77,8 +78,10 @@ public class ProductosRestService {
    */
 
   @PutMapping("/{idProducto}")
-  public Mono<ProductoRes> putProductById(@RequestBody ProductoReq producto , @PathVariable(name="idProducto") String idProducto){
-    return servProdApp.putProduct(idProducto,producto);
+  public Mono<ProductoRes> putProductById(
+      @RequestBody ProductoReq producto, 
+      @PathVariable(name = "idProducto") String idProducto) {
+    return servProdApp.putProduct(idProducto, producto);
   }
   
   /**
@@ -88,19 +91,20 @@ public class ProductosRestService {
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto eliminado
    */
   @DeleteMapping("/{idProducto}")
-  public Mono<ProductoRes> delProductById(@PathVariable(name="idProducto") String idProducto){
+  public Mono<ProductoRes> delProductById(
+      @PathVariable(name = "idProducto") String idProducto) {
     return servProdApp.delProductById(idProducto);
   }
   
   /**
-        .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Entidad no procesable")));
    * Obtiene un Producto y los Codigos Personas y Roles dentro de la cuenta.
    *
    * @param idProducto el identificador del producto a consultar
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto
    */
   @GetMapping("/{idProducto}/personas")
-  public Mono<ProductoRolesRes> getPersonaRolesByProductId(@PathVariable(name="idProducto") String idProducto){
+  public Mono<ProductoRolesRes> getPersonaRolesByProductId(
+      @PathVariable(name = "idProducto") String idProducto) {
     return servProdApp.getPersonaRolesByProductId(idProducto);
   }
   

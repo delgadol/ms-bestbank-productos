@@ -40,19 +40,25 @@ public class Producto implements Serializable{
   
   private double comision;
   
-  private Integer maxOperacionesMes = Integer.MAX_VALUE;
+  private Integer maxOperacionesMes;
   
   private Integer minDiaMesOperacion;
   
-  private Integer indEliminado = 0 ;
+  private Integer indEliminado;
   
-  private String estado = "0"; 
+  private String estado; 
   
   private TipoCliente tipoCliente;
   
+  private Double costExtraOperacionesMes;
+  
+  private Double minSaldoMensual;
+  
+  private Double costMinSaldoMensual;
+  
   private List<PersonaRoles> personaRoles = new ArrayList<>();
   
-  private Date fechaCreacion ;
+  private Date fechaCreacion;
   
   private Date fechaActualizacion;
   

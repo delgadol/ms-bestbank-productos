@@ -47,10 +47,11 @@ public class ProductoServicioTool extends ProductoServiceEspecial {
   private Boolean reglaMaxProductoPermitivo(List<Producto> productos) {
     Map<TipoProducto, Long> tipoProdContadorMap = productos.stream()
         .collect(Collectors.groupingBy(Producto::getTipoProducto, Collectors.counting()));
-    Long cantidadProdEndCliente = tipoProdContadorMap.getOrDefault(carteraProd.getTipoProducto(),(long) 0);
+    Long cantidadProdEndCliente = tipoProdContadorMap
+        .getOrDefault(carteraProd.getTipoProducto(), (long) 0);
     if (carteraProd.getTipoCliente() == TipoCliente.EMPRESARIAL) {
       return cantidadProdEndCliente < carteraProd.getMaxProdEmpresarial();
-    }else {
+    } else {
       return  cantidadProdEndCliente < carteraProd.getMaxProdPersonal();
     }    
   }
@@ -66,25 +67,25 @@ public class ProductoServicioTool extends ProductoServiceEspecial {
         producto.getCodigoPersona(), ApplicationConstants.REGISTRO_NO_ELIMINADO).collectList()
         .filter(this::reglasParaProductos)
         .flatMap(permiteGuardar -> {
-        return servProd.save(producto).flatMap(entidad -> {
-          Saldo saldoCero = new Saldo();
-          saldoCero.setCodControl(BankFnUtils.uniqueProductCode());
-          saldoCero.setGrupoProdcuto(entidad.getGrupoProducto());
-          saldoCero.setTipoProducto(entidad.getTipoProducto());
-          saldoCero.setCodigoProducto(entidad.getId());
-          saldoCero.setSaldoActual(0.00D);
-          saldoCero.setIdPersona(entidad.getCodigoPersona());
-          saldoCero.setFechaActualizacion(BankFnUtils.getDateTime());
-          return servSaldo.save(saldoCero)
-              .flatMap(saldoW ->{
-                return Mono.just(entidad);
-              });
-        });
-          })
+          return servProd.save(producto).flatMap(entidad -> {
+            Saldo saldoCero = new Saldo();
+            saldoCero.setCodControl(BankFnUtils.uniqueProductCode());
+            saldoCero.setGrupoProdcuto(entidad.getGrupoProducto());
+            saldoCero.setTipoProducto(entidad.getTipoProducto());
+            saldoCero.setCodigoProducto(entidad.getId());
+            saldoCero.setSaldoActual(0.00D);
+            saldoCero.setIdPersona(entidad.getCodigoPersona());
+            saldoCero.setFechaActualizacion(BankFnUtils.getDateTime());
+            return servSaldo.save(saldoCero)
+                .flatMap(saldoW -> {
+                  return Mono.just(entidad);
+                });
+          });
+        })
           .switchIfEmpty(Mono.error(
               new Throwable(String.format("%s Producto No Resgistrado, requistos no cumplidos", 
                   producto.getTipoProducto().getDescripcion()))
               )
           );
-      }
+  }
 }

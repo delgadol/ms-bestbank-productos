@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class ProductosService extends ProductosRepositoryImpl{
+public class ProductosService extends ProductosRepositoryImpl {
 
   protected ProductosService(ProductosRepository productosRepo) {
     super(productosRepo);

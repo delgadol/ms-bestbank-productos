@@ -28,13 +28,17 @@ public class ProductoCartera {
   
   private Integer minDiaMesOperacion;
   
-  private Integer minSaldoMensual;
+  private Double minSaldoMensual;
   
   private Integer maxProdPersonal;
   
   private Integer maxProdEmpresarial;
   
   private List<TipoProducto> reqPrevios;
+  
+  private Double costExtraOperacionesMes;
+  
+  private Double costMinSaldoMensual;
   
 
 }
