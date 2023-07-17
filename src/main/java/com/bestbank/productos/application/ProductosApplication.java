@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.bestbank.productos.application.dto.req.ProductoModReq;
 import com.bestbank.productos.application.dto.req.ProductoReq;
 import com.bestbank.productos.application.dto.res.ClienteRes;
 import com.bestbank.productos.application.dto.res.ProductoRes;
@@ -115,8 +116,22 @@ public class ProductosApplication {
    * @param producto la información actualizada del producto
    * @return un Mono que emite el objeto ProductoRes resultante
    */
-  public Mono<ProductoRes> putProduct(String idProducto, ProductoReq producto) {
-    return null;
+  public Mono<ProductoRes> putProduct (String idProducto, ProductoModReq producto) {
+    return checkProductoClientOk(idProducto)
+        .flatMap(prodApi -> {
+          Producto modProducto = ModelMapperUtils.map(prodApi, Producto.class);
+          if (producto.getComision().isPresent()) {
+            modProducto.setComision(producto.getComision().get());
+          }
+          if (producto.getMaximoOperacionesMes().isPresent()) {
+            modProducto.setMaxOperacionesMes(producto.getMaximoOperacionesMes().get());
+          }
+          if (producto.getMinDiaMesOperacion().isPresent()) {
+            modProducto.setMinDiaMesOperacion(producto.getMinDiaMesOperacion().get());
+          }
+          modProducto.setFechaActualizacion(BankFnUtils.getDateTime());
+          return ModelMapperUtils.mapToMono(servProd.save(modProducto), ProductoRes.class);
+        });
   }
   
   /**

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bestbank.productos.application.ProductosApplication;
+import com.bestbank.productos.application.dto.req.ProductoModReq;
 import com.bestbank.productos.application.dto.req.ProductoReq;
 import com.bestbank.productos.application.dto.res.ProductoRes;
 import com.bestbank.productos.application.dto.res.ProductoRolesRes;
@@ -82,7 +83,7 @@ public class ProductosRestService {
 
   @PutMapping("/{idProducto}")
   public Mono<ProductoRes> putProductById(
-      @RequestBody ProductoReq producto, 
+      @RequestBody ProductoModReq producto, 
       @PathVariable(name = "idProducto") String idProducto) {
     return servProdApp.putProduct(idProducto, producto);
   }
