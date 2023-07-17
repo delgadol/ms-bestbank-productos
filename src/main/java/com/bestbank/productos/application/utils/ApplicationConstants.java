@@ -1,5 +1,8 @@
 package com.bestbank.productos.application.utils;
 
+/**
+ * Clase que define las constantes utilizadas en la aplicación.
+ */
 public class ApplicationConstants {
   
   public static final Integer REGISTRO_ELIMINADO = 1;

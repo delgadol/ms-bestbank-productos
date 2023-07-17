@@ -14,6 +14,11 @@ import com.bestbank.productos.domain.utils.TipoProducto;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que implementa un servicio especializado para la gestión de productos 
+ * utilizando herramientas adicionales.
+ * Extiende de la clase abstracta "ProductoServiceEspecial".
+ */
 public class ProductoServicioTool extends ProductoServiceEspecial {
 
   private ProductosService servProd;

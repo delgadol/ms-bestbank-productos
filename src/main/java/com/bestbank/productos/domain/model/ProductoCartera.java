@@ -10,6 +10,10 @@ import com.bestbank.productos.domain.utils.TipoProducto;
 
 import lombok.Data;
 
+/**
+ * Clase que representa un producto de la cartera, relacionado con 
+ * los productos ofrecidos por la entidad.
+ */
 @Data
 public class ProductoCartera {
   

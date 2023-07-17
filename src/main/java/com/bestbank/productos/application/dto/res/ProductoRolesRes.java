@@ -8,6 +8,11 @@ import com.bestbank.productos.domain.model.PersonaRoles;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * Clase que representa la respuesta de asignación de personas y roles a un producto, 
+ * y extiende la clase "ProductoRes".
+ */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ProductoRolesRes extends ProductoRes {

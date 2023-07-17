@@ -13,15 +13,18 @@ import com.bestbank.productos.infrastructure.persistence.DataProductoRepoImpl;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que proporciona servicios relacionados con la cartera de productos 
+ * y extiende la implementación del repositorio de datos "DataProductoRepoImpl".
+ * 
+ */
+
 @Service
-public class CarteraProductosServices extends DataProductoRepoImpl{
+public class CarteraProductosServices extends DataProductoRepoImpl {
 
   @Override
-  public Mono<ProductoCartera> getValoresCarteraPorTipoID(
-      TipoProducto tipoProducto) {
-//    ProductoCartera carteraProd = ModelMapperUtils.map(
-//        carteraProdRep.getModelData(tipoProducto.toString()),ProductoCartera.class);
-    
+  public Mono<ProductoCartera> getValoresCarteraPorTipoId(
+      TipoProducto tipoProducto) {    
     Map<String, Object> itemData = new HashMap<>();
     itemData = carteraProdRep.getModelData(tipoProducto.toString());
     ProductoCartera carteraProd = null;
@@ -38,7 +41,9 @@ public class CarteraProductosServices extends DataProductoRepoImpl{
       List<TipoProducto> prodPrevios = (List<TipoProducto>) itemData.get("reqPrevios");
       carteraProd.setReqPrevios(prodPrevios);
       carteraProd.setTipoProducto(tipoProducto);
-      /** Nuevos Valores **/
+      /** 
+       * Nuevos Valores 
+       * **/
       carteraProd.setCostExtraOperacionesMes((Double) itemData.get("costExtraOperacionesMes"));
       carteraProd.setCostMinSaldoMensual((Double) itemData.get("costMinSaldoMensual"));      
     }

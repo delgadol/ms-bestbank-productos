@@ -6,6 +6,9 @@ import com.bestbank.productos.domain.utils.TipoProducto;
 
 import lombok.Data;
 
+/**
+ * Clase que representa la respuesta de un producto.
+ */
 @Data
 public class ProductoRes {
   

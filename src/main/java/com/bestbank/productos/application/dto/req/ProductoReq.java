@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * Clase que representa una solicitud para crear o actualizar un producto.
+ */
 @Data
 public class ProductoReq {
   

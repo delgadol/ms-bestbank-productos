@@ -20,6 +20,9 @@ import jakarta.validation.Valid;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que proporciona servicios REST relacionados con la gestión de productos.
+ */
 @RestController
 @Validated
 @RequestMapping("/v1/productos")
@@ -42,7 +45,7 @@ public class ProductosRestService {
    * @return un Mono que emite el objeto ProductoRes resultante
    */
   @PostMapping("")
-  public Mono<ProductoRes> postProduct(@Valid @RequestBody ProductoReq producto){
+  public Mono<ProductoRes> postProduct(@Valid @RequestBody ProductoReq producto) {
     return servProdApp.postProduct(producto);
   }
   

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * Clase que representa una solicitud para asignar persona y roles a un producto.
+ */
 @Data
 public class ProductoRolesReq {
   

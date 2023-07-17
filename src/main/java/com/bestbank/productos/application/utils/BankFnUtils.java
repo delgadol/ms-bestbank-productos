@@ -3,6 +3,9 @@ package com.bestbank.productos.application.utils;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Clase que proporciona funciones y utilidades relacionadas con operaciones bancarias.
+ */
 public class BankFnUtils {
   
   public static String uniqueProductCode() {

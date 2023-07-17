@@ -20,11 +20,8 @@ import lombok.Data;
  */
 @Document(collection = "productos")
 @Data
-public class Producto implements Serializable{
+public class Producto implements Serializable {
 
-  
-  /**
-   */ 
   private static final long serialVersionUID = -3885933279296836915L;
   
   @Id

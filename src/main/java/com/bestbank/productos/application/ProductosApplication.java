@@ -38,6 +38,9 @@ public class ProductosApplication {
   
   private final SaldosService servSaldo;
   
+  /**
+   * Clase principal que inicia la aplicación de gestión de productos.
+   */
   public ProductosApplication(ProductosService servProd, 
       CarteraProductosServices servCartera, 
       SaldosService servSaldo) {
@@ -47,16 +50,22 @@ public class ProductosApplication {
   }
 
   /**
-   * Crea un nuevo producto con la información proporcionada.
-   * @param producto la información del producto a crear
-   * @return un Mono que emite el objeto ProductoRes resultante
+   * Crea un nuevo producto con la información proporcionada en la solicitud y 
+   * devuelve un Mono que emite la respuesta del producto creado.
+   *
+   * @param producto La solicitud de creación del producto.
+   * @return Un Mono que emite la respuesta del producto creado.
    */
-  public Mono<ProductoRes> postProduct(ProductoReq producto){
-    return isClienteOK(producto.getCodigoPersona()).
-        flatMap(clienteApi->{
-          return servCartera.getValoresCarteraPorTipoID(producto.getTipoProducto())
-              .flatMap( carteraProd -> {
-                /** seteamos el tipo de Cliente **/
+  public Mono<ProductoRes> postProduct(ProductoReq producto) {
+    return isClienteOk(producto.getCodigoPersona())
+        .flatMap(clienteApi -> {
+          return servCartera.getValoresCarteraPorTipoId(producto.getTipoProducto())
+              .flatMap(carteraProd -> {
+                /* 
+                 * 
+                 * seteamos el tipo de Cliente 
+                 * 
+                 **/
                 ProductoCartera carteraProdToServ = ModelMapperUtils.map(
                     carteraProd, ProductoCartera.class);
                 carteraProdToServ.setTipoCliente(clienteApi.getTipoCliente());
@@ -65,7 +74,10 @@ public class ProductosApplication {
                 servProdTool.setServProd(servProd);
                 servProdTool.setSerSaldo(servSaldo);
                 Producto nuevoProducto = new Producto();
-                /** Mapeamos todos los Flujos **/
+                /* 
+                 * Mapeamos todos los Flujos 
+                 *                  
+                 **/
                 nuevoProducto.setCodigoPersona(clienteApi.getId());
                 nuevoProducto.setCodigoProducto(BankFnUtils.uniqueProductCode());
                 nuevoProducto.setComision(carteraProd.getComision());
@@ -78,50 +90,64 @@ public class ProductosApplication {
                 nuevoProducto.setTipoProducto(producto.getTipoProducto());
                 nuevoProducto.setFechaCreacion(BankFnUtils.getDateTime());
                 nuevoProducto.setFechaActualizacion(BankFnUtils.getDateTime());
-                /** Nuevos Valores **/
+                /* 
+                 * Nuevos Valores 
+                 * 
+                 * **/
                 nuevoProducto.setMinSaldoMensual(carteraProd.getMinSaldoMensual());
                 nuevoProducto.setCostExtraOperacionesMes(carteraProd.getCostExtraOperacionesMes());
                 nuevoProducto.setCostMinSaldoMensual(carteraProd.getCostMinSaldoMensual());
-                /** Mapeamos los Campos Basicos **/
-                return servProdTool.save(nuevoProducto).
-                    flatMap(productoDB -> {
+                /* 
+                 * Mapeamos los Campos Basicos 
+                 * **/
+                return servProdTool.save(nuevoProducto)
+                    .flatMap(productoDB -> {
                       return Mono.just(ModelMapperUtils.map(productoDB, ProductoRes.class));
                     });
               });
         });
   }
   
-  /**
+  /*
    * Actualiza un producto existente con la información proporcionada.
    * 
    * @param idProducto el identificador del producto a actualizar
    * @param producto la información actualizada del producto
    * @return un Mono que emite el objeto ProductoRes resultante
    */
-  public Mono<ProductoRes> putProduct(String idProducto, ProductoReq producto){
+  public Mono<ProductoRes> putProduct(String idProducto, ProductoReq producto) {
     return null;
   }
   
-  public Mono<ProductoRes> getProductById(String idProducto){
-    return checkProductoClientOK(idProducto)
+  /**
+   * Obtiene un producto por su ID y devuelve un Mono que emite la respuesta del producto.
+   *
+   * @param idProducto El ID del producto a buscar.
+   * @return Un Mono que emite la respuesta del producto.
+   */
+  public Mono<ProductoRes> getProductById(String idProducto) {
+    return checkProductoClientOk(idProducto)
         .flatMap(productoDbOK -> {
           return Mono.just(ModelMapperUtils.map(productoDbOK, ProductoRes.class));
         });
   }
   
   /**
-   * Obtiene un producto por su identificador.
+   * Obtiene todos los productos asociados a un cliente específico y devuelve un Flux 
+   * que emite las respuestas de los productos.
    *
-   * @param idProduct el identificador del producto
-   * @return un Mono que emite el objeto ProductoRes correspondiente al ID proporcionado
+   * @param idClient El ID del cliente para el cual se desean obtener los productos.
+   * @return Un Flux que emite las respuestas de los productos asociados al cliente.
    */  
-  public Flux<ProductoRes> getAllProductByClientId(String idClient){
-    return isClienteOK(idClient).flux().
-        flatMap(clienteOK -> {
-          return servProd.findAllByCodigoPersonaAndIndEliminado(idClient, ApplicationConstants.REGISTRO_NO_ELIMINADO)
-            .filter(prodDBF1 -> prodDBF1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
+  public Flux<ProductoRes> getAllProductByClientId(String idClient) {
+    return isClienteOk(idClient).flux()
+        .flatMap(clienteOK -> {
+          return servProd.findAllByCodigoPersonaAndIndEliminado(
+              idClient, ApplicationConstants.REGISTRO_NO_ELIMINADO)
+            .filter(prodDBF1 -> prodDBF1.getEstado().equalsIgnoreCase(
+                ApplicationConstants.ESTADO_NORMAL))
             .flatMap(prodDBOK -> {
-              return Flux.just(ModelMapperUtils.map(prodDBOK , ProductoRes.class));
+              return Flux.just(ModelMapperUtils.map(prodDBOK, ProductoRes.class));
             });
         });
   }
@@ -132,16 +158,18 @@ public class ProductosApplication {
    * @param idProducto el identificador del producto a eliminar
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto eliminado
    */
-  public Mono<ProductoRes> delProductById(String idProducto){
+  public Mono<ProductoRes> delProductById(String idProducto) {
     return servProd.findFirstByIdAndIndEliminado(idProducto, 
       ApplicationConstants.REGISTRO_NO_ELIMINADO)
-      .filter(prodFiltro1 -> prodFiltro1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
-      .flatMap(prodDBOK -> {
-        return WebClientApi.getMono(String.format(clienteUrlTemp,prodDBOK.getCodigoPersona()), 
+      .filter(prodFiltro1 -> prodFiltro1.getEstado().equalsIgnoreCase(
+          ApplicationConstants.ESTADO_NORMAL))
+      .flatMap(prodDbOk -> {
+        return WebClientApi.getMono(String.format(clienteUrlTemp,
+            prodDbOk.getCodigoPersona()), 
           ClienteRes.class, idProducto).flatMap(clienteRes -> {
-            Producto prodModDB = ModelMapperUtils.map(prodDBOK,Producto.class);
-            prodModDB.setIndEliminado(ApplicationConstants.REGISTRO_ELIMINADO);
-            return ModelMapperUtils.mapToMono(servProd.save(prodModDB), ProductoRes.class);
+            Producto prodModDb = ModelMapperUtils.map(prodDbOk, Producto.class);
+            prodModDb.setIndEliminado(ApplicationConstants.REGISTRO_ELIMINADO);
+            return ModelMapperUtils.mapToMono(servProd.save(prodModDb), ProductoRes.class);
           });
       })
       .switchIfEmpty(Mono.error(
@@ -156,8 +184,8 @@ public class ProductosApplication {
    * @param idProducto el identificador del producto a consultar
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto
    */
-  public Mono<ProductoRolesRes> getPersonaRolesByProductId(String idProducto){
-    return checkProductoClientOK(idProducto).flatMap(productoOK -> {
+  public Mono<ProductoRolesRes> getPersonaRolesByProductId(String idProducto) {
+    return checkProductoClientOk(idProducto).flatMap(productoOK -> {
       return Mono.just(ModelMapperUtils.map(productoOK, ProductoRolesRes.class));
     });
   }
@@ -170,71 +198,82 @@ public class ProductosApplication {
    * @param codePersona el identificador cliente a eliminar
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto modificado
    */
-  public Mono<ProductoRolesRes> delPersonaRolesByProductIdAndCodePersona(String idProducto, String codePersona){
-    return checkProductoClientOK(idProducto).flatMap( productoOK -> {
-      Producto prodModDB = ModelMapperUtils.map( productoOK , Producto.class);
-      List<PersonaRoles> nuevoPersonaRoles = prodModDB.getPersonaRoles()
+  public Mono<ProductoRolesRes> delPersonaRolesByProductIdAndCodePersona(String idProducto, 
+      String codePersona) {
+    return checkProductoClientOk(idProducto).flatMap(productoOK -> {
+      Producto prodModDb = ModelMapperUtils.map(productoOK, Producto.class);
+      List<PersonaRoles> nuevoPersonaRoles = prodModDb.getPersonaRoles()
           .stream()
-          .filter( x -> !x.getCodigoPersona().equals(codePersona))
+          .filter(x -> !x.getCodigoPersona().equals(codePersona))
           .toList();
-      prodModDB.setPersonaRoles(nuevoPersonaRoles);
-      return ModelMapperUtils.mapToMono(servProd.save(prodModDB),ProductoRolesRes.class);
+      prodModDb.setPersonaRoles(nuevoPersonaRoles);
+      return ModelMapperUtils.mapToMono(servProd.save(prodModDb), ProductoRolesRes.class);
     });
   }
   
   /**
-   * Obtiene un Producto y los Codigos Personas y Roles dentro de la cuenta.
-   * Luego de Eliminar una Persona
+   * Agrega roles de persona a un producto específico mediante su ID y la información de los roles 
+   * de persona proporcionados,
+   * y devuelve un Mono que emite la respuesta de los roles de persona agregados.
    *
-   * @param idProducto el identificador del producto a modificar
-   * @param codePersona el identificador cliente a eliminar
-   * @return un Mono que emite el objeto ProductoRes correspondiente al producto modificado
+   * @param idProducto  El ID del producto al cual se agregarán los roles de persona.
+   * @param personaRol  Los roles de persona a agregar al producto.
+   * @return Un Mono que emite la respuesta de los roles de persona agregados al producto.
    */
-  public Mono<ProductoRolesRes> addPersonaRolesByProductIdAndRolePersona(String idProducto, PersonaRoles personaRol){
-    return checkProductoClientOK(idProducto)
+  public Mono<ProductoRolesRes> addPersonaRolesByProductIdAndRolePersona(String idProducto, 
+      PersonaRoles personaRol) {
+    return checkProductoClientOk(idProducto)
         .flatMap(t -> { 
-          return isClienteOK(personaRol.getCodigoPersona())
-            .flatMap(clienteApi ->{
-              return servProd.findFirstByIdAndIndEliminado(idProducto, ApplicationConstants.REGISTRO_NO_ELIMINADO)
-                  .filter(producto -> producto.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
+          return isClienteOk(personaRol.getCodigoPersona())
+            .flatMap(clienteApi -> {
+              return servProd.findFirstByIdAndIndEliminado(idProducto, 
+                  ApplicationConstants.REGISTRO_NO_ELIMINADO)
+                  .filter(producto -> producto.getEstado().equalsIgnoreCase(
+                      ApplicationConstants.ESTADO_NORMAL))
                   .flatMap(prodOK -> {
                     Producto modProducto = ModelMapperUtils.map(prodOK, Producto.class);
-                    if(!(modProducto.getTipoCliente().equals(TipoCliente.EMPRESARIAL) 
+                    if (!(modProducto.getTipoCliente().equals(TipoCliente.EMPRESARIAL) 
                         && modProducto.getGrupoProducto().equals(GrupoProducto.PASIVOS))) {
-                      throw new RuntimeException("Cuenta no Admite adicionales");
-                    };
+                      throw new RuntimeException("Cuenta no Admite adicionales"); 
+                    }
                     int existePersona = modProducto.getPersonaRoles()
-                      .stream()
-                      .filter( x -> x.getCodigoPersona()
+                        .stream()
+                        .filter(x -> x.getCodigoPersona()
                           .equals(personaRol.getCodigoPersona()))
-                      .toList()
-                      .size();
-                    if (existePersona == 0 ) {
+                        .toList()
+                        .size();
+                    if (existePersona == 0) {
                       modProducto.getPersonaRoles().add(personaRol);
-                    }else {
+                    } else {
                       throw new RuntimeException("Cliente ya esta registrado");
                     }
                     return servProd.save(modProducto)
-                        .flatMap( prodEntidad ->{
-                          return Mono.just(ModelMapperUtils.map(prodEntidad, ProductoRolesRes.class));
+                        .flatMap(prodEntidad -> {
+                          return Mono.just(ModelMapperUtils.map(prodEntidad, 
+                              ProductoRolesRes.class));
                         });
                   });
             });
         });
   }
   
-  /*
-   * funcione Helper Para Verificar Producto y Cliente
-   * 
-   * */
-  private Mono<Producto> checkProductoClientOK(String idProducto){
+  /**
+   * Verifica si un producto específico cumple con las validaciones necesarias para el cliente,
+   * utilizando el ID del producto y devuelve un Mono que emite el producto verificado.
+   *
+   * @param idProducto El ID del producto a verificar.
+   * @return Un Mono que emite el producto verificado si cumple con las validaciones del cliente.
+   */
+
+  private Mono<Producto> checkProductoClientOk (String idProducto) {
     return servProd.findFirstByIdAndIndEliminado(idProducto, 
         ApplicationConstants.REGISTRO_NO_ELIMINADO)
-        .filter(prodFiltro1 -> prodFiltro1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
-        .flatMap(prodDBOK -> {
-          return WebClientApi.getMono(String.format(clienteUrlTemp,prodDBOK.getCodigoPersona()), 
+        .filter(prodFiltro1 -> 
+        prodFiltro1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
+        .flatMap(prodDbOk -> {
+          return WebClientApi.getMono(String.format(clienteUrlTemp, prodDbOk.getCodigoPersona()), 
             ClienteRes.class, idProducto).flatMap(clienteRes -> {
-              return Mono.just(prodDBOK);
+              return Mono.just(prodDbOk);
             });
         })
         .switchIfEmpty(Mono.error(
@@ -243,16 +282,16 @@ public class ProductosApplication {
         );
   }
   
-  /*
-   * funcion para veridicar un cliente 
-   * 
-   *  
-   * 
-   * */
-  
-  private Mono<ClienteRes> isClienteOK(String idCliente) {
-    return WebClientApi.getMono(String.format(clienteUrlTemp,idCliente), 
-        ClienteRes.class, String.format("COD: %s",idCliente));
+  /**
+   * Verifica si un cliente específico cumple con las validaciones necesarias y 
+   * devuelve un Mono que emite la respuesta del cliente verificado.
+   *
+   * @param idCliente El ID del cliente a verificar.
+   * @return Un Mono que emite la respuesta del cliente verificado
+   */
+  private Mono<ClienteRes> isClienteOk(String idCliente) {
+    return WebClientApi.getMono(String.format(clienteUrlTemp, idCliente), 
+        ClienteRes.class, String.format("COD: %s", idCliente));
   }
 
 }

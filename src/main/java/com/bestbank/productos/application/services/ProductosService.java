@@ -10,6 +10,12 @@ import com.bestbank.productos.infrastructure.persistence.ProductosRepositoryImpl
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que proporciona servicios relacionados con la gestión de productos y 
+ * extiende la implementación del repositorio "ProductosRepositoryImpl".
+ * 
+ */
+
 @Service
 public class ProductosService extends ProductosRepositoryImpl {
 
