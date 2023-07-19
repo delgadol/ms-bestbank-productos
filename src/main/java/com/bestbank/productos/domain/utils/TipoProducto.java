@@ -4,7 +4,7 @@ package com.bestbank.productos.domain.utils;
  * Enumeración que define los diferentes tipos de productos.
  */
 public enum TipoProducto {
-  
+
   CTAA("Cuenta de Ahorro"),
   CTCC("Cuenta Corriente"),
   DPFJ("Deposito a Plazo Fijo"),

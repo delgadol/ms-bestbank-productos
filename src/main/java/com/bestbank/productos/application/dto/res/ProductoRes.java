@@ -20,6 +20,8 @@ public class ProductoRes {
   
   private String codigoProducto;
   
+  private String codigoPersona;
+  
   private String estado;
   
   private TipoCliente tipoCliente;
