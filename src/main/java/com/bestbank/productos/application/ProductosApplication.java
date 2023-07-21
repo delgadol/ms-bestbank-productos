@@ -59,8 +59,8 @@ public class ProductosApplication {
    */
   public Mono<ProductoRes> postProduct(ProductoReq producto) {
     return isClienteOk(producto.getCodigoPersona())
-        .flatMap(clienteApi -> {
-          return servCartera.getValoresCarteraPorTipoId(producto.getTipoProducto())
+        .flatMap(clienteApi -> 
+          servCartera.getValoresCarteraPorTipoId(producto.getTipoProducto())
               .flatMap(carteraProd -> {
                 /* 
                  * 
@@ -102,11 +102,11 @@ public class ProductosApplication {
                  * Mapeamos los Campos Basicos 
                  * **/
                 return servProdTool.save(nuevoProducto)
-                    .flatMap(productoDB -> {
-                      return Mono.just(ModelMapperUtils.map(productoDB, ProductoRes.class));
-                    });
-              });
-        });
+                    .flatMap(productoDB -> 
+                      Mono.just(ModelMapperUtils.map(productoDB, ProductoRes.class))
+                    );
+              })
+        );
   }
   
   /*
@@ -142,9 +142,9 @@ public class ProductosApplication {
    */
   public Mono<ProductoRes> getProductById(String idProducto) {
     return checkProductoClientOk(idProducto)
-        .flatMap(productoDbOK -> {
-          return Mono.just(ModelMapperUtils.map(productoDbOK, ProductoRes.class));
-        });
+        .flatMap(productoDbOK -> 
+          Mono.just(ModelMapperUtils.map(productoDbOK, ProductoRes.class))
+        );
   }
   
   /**
@@ -156,15 +156,15 @@ public class ProductosApplication {
    */  
   public Flux<ProductoRes> getAllProductByClientId(String idClient) {
     return isClienteOk(idClient).flux()
-        .flatMap(clienteOK -> {
-          return servProd.findAllByCodigoPersonaAndIndEliminado(
+        .flatMap(clienteOK -> 
+          servProd.findAllByCodigoPersonaAndIndEliminado(
               idClient, ApplicationConstants.REGISTRO_NO_ELIMINADO)
             .filter(prodDBF1 -> prodDBF1.getEstado().equalsIgnoreCase(
                 ApplicationConstants.ESTADO_NORMAL))
-            .flatMap(prodDBOK -> {
-              return Flux.just(ModelMapperUtils.map(prodDBOK, ProductoRes.class));
-            });
-        });
+            .flatMap(prodDBOK -> 
+              Flux.just(ModelMapperUtils.map(prodDBOK, ProductoRes.class))
+            )
+        );
   }
   
   /**
@@ -178,15 +178,15 @@ public class ProductosApplication {
       ApplicationConstants.REGISTRO_NO_ELIMINADO)
       .filter(prodFiltro1 -> prodFiltro1.getEstado().equalsIgnoreCase(
           ApplicationConstants.ESTADO_NORMAL))
-      .flatMap(prodDbOk -> {
-        return WebClientApi.getMono(String.format(clienteUrlTemp,
+      .flatMap(prodDbOk -> 
+        WebClientApi.getMono(String.format(clienteUrlTemp,
             prodDbOk.getCodigoPersona()), 
           ClienteRes.class, idProducto).flatMap(clienteRes -> {
             Producto prodModDb = ModelMapperUtils.map(prodDbOk, Producto.class);
             prodModDb.setIndEliminado(ApplicationConstants.REGISTRO_ELIMINADO);
             return ModelMapperUtils.mapToMono(servProd.save(prodModDb), ProductoRes.class);
-          });
-      })
+          })
+      )
       .switchIfEmpty(Mono.error(
           new Throwable(String.format("%s Producto No Resgistrado", idProducto))
           )
@@ -200,9 +200,9 @@ public class ProductosApplication {
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto
    */
   public Mono<ProductoRolesRes> getPersonaRolesByProductId(String idProducto) {
-    return checkProductoClientOk(idProducto).flatMap(productoOK -> {
-      return Mono.just(ModelMapperUtils.map(productoOK, ProductoRolesRes.class));
-    });
+    return checkProductoClientOk(idProducto).flatMap(productoOK -> 
+      Mono.just(ModelMapperUtils.map(productoOK, ProductoRolesRes.class))
+    );
   }
   
   /**
@@ -238,10 +238,10 @@ public class ProductosApplication {
   public Mono<ProductoRolesRes> addPersonaRolesByProductIdAndRolePersona(String idProducto, 
       PersonaRoles personaRol) {
     return checkProductoClientOk(idProducto)
-        .flatMap(t -> { 
-          return isClienteOk(personaRol.getCodigoPersona())
-            .flatMap(clienteApi -> {
-              return servProd.findFirstByIdAndIndEliminado(idProducto, 
+        .flatMap(t ->  
+          isClienteOk(personaRol.getCodigoPersona())
+            .flatMap(clienteApi -> 
+              servProd.findFirstByIdAndIndEliminado(idProducto, 
                   ApplicationConstants.REGISTRO_NO_ELIMINADO)
                   .filter(producto -> producto.getEstado().equalsIgnoreCase(
                       ApplicationConstants.ESTADO_NORMAL))
@@ -263,13 +263,13 @@ public class ProductosApplication {
                       throw new RuntimeException("Cliente ya esta registrado");
                     }
                     return servProd.save(modProducto)
-                        .flatMap(prodEntidad -> {
-                          return Mono.just(ModelMapperUtils.map(prodEntidad, 
-                              ProductoRolesRes.class));
-                        });
-                  });
-            });
-        });
+                        .flatMap(prodEntidad -> 
+                          Mono.just(ModelMapperUtils.map(prodEntidad, 
+                              ProductoRolesRes.class))
+                        );
+                  })
+            )
+        );
   }
   
   /**
@@ -285,12 +285,12 @@ public class ProductosApplication {
         ApplicationConstants.REGISTRO_NO_ELIMINADO)
         .filter(prodFiltro1 -> 
         prodFiltro1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
-        .flatMap(prodDbOk -> {
-          return WebClientApi.getMono(String.format(clienteUrlTemp, prodDbOk.getCodigoPersona()), 
-            ClienteRes.class, idProducto).flatMap(clienteRes -> {
-              return Mono.just(prodDbOk);
-            });
-        })
+        .flatMap(prodDbOk -> 
+          WebClientApi.getMono(String.format(clienteUrlTemp, prodDbOk.getCodigoPersona()), 
+            ClienteRes.class, idProducto).flatMap(clienteRes -> 
+              Mono.just(prodDbOk)
+            )
+        )
         .switchIfEmpty(Mono.error(
             new Throwable(String.format("%s Producto Desconocido", idProducto))
             )

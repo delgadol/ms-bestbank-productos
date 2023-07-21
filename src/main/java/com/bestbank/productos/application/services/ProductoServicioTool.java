@@ -71,8 +71,8 @@ public class ProductoServicioTool extends ProductoServiceEspecial {
     return servProd.findAllByCodigoPersonaAndIndEliminado(
         producto.getCodigoPersona(), ApplicationConstants.REGISTRO_NO_ELIMINADO).collectList()
         .filter(this::reglasParaProductos)
-        .flatMap(permiteGuardar -> {
-          return servProd.save(producto).flatMap(entidad -> {
+        .flatMap(permiteGuardar -> 
+          servProd.save(producto).flatMap(entidad -> {
             Saldo saldoCero = new Saldo();
             saldoCero.setCodControl(BankFnUtils.uniqueProductCode());
             saldoCero.setGrupoProdcuto(entidad.getGrupoProducto());
@@ -82,11 +82,11 @@ public class ProductoServicioTool extends ProductoServiceEspecial {
             saldoCero.setIdPersona(entidad.getCodigoPersona());
             saldoCero.setFechaActualizacion(BankFnUtils.getDateTime());
             return servSaldo.save(saldoCero)
-                .flatMap(saldoW -> {
-                  return Mono.just(entidad);
-                });
-          });
-        })
+                .flatMap(saldoW -> 
+                  Mono.just(entidad)
+                );
+          })
+        )
           .switchIfEmpty(Mono.error(
               new Throwable(String.format("%s Producto No Resgistrado, requistos no cumplidos", 
                   producto.getTipoProducto().getDescripcion()))
