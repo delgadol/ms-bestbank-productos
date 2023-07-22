@@ -249,7 +249,9 @@ public class ProductosApplication {
                     Producto modProducto = ModelMapperUtils.map(prodOK, Producto.class);
                     if (!(modProducto.getTipoCliente().equals(TipoCliente.EMPRESARIAL) 
                         && modProducto.getGrupoProducto().equals(GrupoProducto.PASIVOS))) {
-                      throw new RuntimeException("Cuenta no Admite adicionales"); 
+                      throw 
+                        new java.util.ConcurrentModificationException(
+                            "Cuenta no Admite adicionales"); 
                     }
                     int existePersona = modProducto.getPersonaRoles()
                         .stream()
@@ -260,7 +262,8 @@ public class ProductosApplication {
                     if (existePersona == 0) {
                       modProducto.getPersonaRoles().add(personaRol);
                     } else {
-                      throw new RuntimeException("Cliente ya esta registrado");
+                      throw 
+                        new java.util.DuplicateFormatFlagsException("Cliente ya esta registrado");
                     }
                     return servProd.save(modProducto)
                         .flatMap(prodEntidad -> 

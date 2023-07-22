@@ -18,9 +18,6 @@ import lombok.EqualsAndHashCode;
 public class ProductoRolesRes extends ProductoRes {
   
 
-  private String codigoPersona;
-  
-  private Double costExtraOperacionesMes;
   
   private Double minSaldoMensual;
   

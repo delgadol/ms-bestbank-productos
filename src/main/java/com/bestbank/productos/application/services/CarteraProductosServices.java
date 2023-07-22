@@ -1,8 +1,8 @@
 package com.bestbank.productos.application.services;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,7 @@ public class CarteraProductosServices extends DataProductoRepoImpl {
   @Override
   public Mono<ProductoCartera> getValoresCarteraPorTipoId(
       TipoProducto tipoProducto) {    
-    Map<String, Object> itemData = new HashMap<>();
-    itemData = carteraProdRep.getModelData(tipoProducto.toString());
+    Map<String, Object> itemData = carteraProdRep.getModelData(tipoProducto.toString());
     ProductoCartera carteraProd = null;
     if (itemData != null) {
       carteraProd = new ProductoCartera();
@@ -41,13 +40,13 @@ public class CarteraProductosServices extends DataProductoRepoImpl {
       List<TipoProducto> prodPrevios = (List<TipoProducto>) itemData.get("reqPrevios");
       carteraProd.setReqPrevios(prodPrevios);
       carteraProd.setTipoProducto(tipoProducto);
-      /** 
+      /* 
        * Nuevos Valores 
-       * **/
+       **/
       carteraProd.setCostExtraOperacionesMes((Double) itemData.get("costExtraOperacionesMes"));
       carteraProd.setCostMinSaldoMensual((Double) itemData.get("costMinSaldoMensual"));      
     }
-    return (tipoProducto == null ? Mono.error(new Throwable("Producto Desconocido"))
+    return (Objects.isNull(itemData) ? Mono.error(new Throwable("Producto Desconocido"))
         : Mono.just(carteraProd));
   }
 

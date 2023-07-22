@@ -16,5 +16,10 @@ public class BankFnUtils {
   public static java.sql.Timestamp getDateTime() {
     return java.sql.Timestamp.valueOf(LocalDateTime.now());
   }
+
+  private BankFnUtils() {
+  }
+  
+  
   
 }

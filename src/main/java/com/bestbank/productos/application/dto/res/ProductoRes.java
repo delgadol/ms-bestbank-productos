@@ -28,7 +28,9 @@ public class ProductoRes {
   
   private Integer maxOperacionesMes;
   
-  private Integer minDiaMesOperacion;  
+  private Integer minDiaMesOperacion; 
+  
+  private Double costExtraOperacionesMes;
   
 
 }
