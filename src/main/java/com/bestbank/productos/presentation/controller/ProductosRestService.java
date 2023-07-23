@@ -57,7 +57,7 @@ public class ProductosRestService {
    * @return un Mono que emite el objeto ProductoRes correspondiente al ID proporcionado
    */
   @GetMapping("/{idProducto}")
-  public Mono<ProductoRes> getProductById(@PathVariable(name = "idProducto") String idProducto){
+  public Mono<ProductoRes> getProductById(@PathVariable(name = "idProducto") String idProducto) {
     return servProdApp.getProductById(idProducto);
   }
   
@@ -122,7 +122,9 @@ public class ProductosRestService {
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto modificado
    */ 
   @DeleteMapping("/{idProducto}/personas/{idPersona}")
-  public Mono<ProductoRolesRes> delPersonaRolesByProductIdAndCodePersona(@PathVariable(name="idProducto") String idProducto, @PathVariable(name="idPersona") String codePersona){
+  public Mono<ProductoRolesRes> delPersonaRolesByProductIdAndCodePersona(
+      @PathVariable(name = "idProducto") String idProducto,
+      @PathVariable(name = "idPersona") String codePersona) {
     return servProdApp.delPersonaRolesByProductIdAndCodePersona(idProducto, codePersona);
   }
   
@@ -131,11 +133,13 @@ public class ProductosRestService {
    * Luego de Adicionar a una persona
    *
    * @param idProducto el identificador del producto a modificar
-   * @param PersonaRoles el objeto de la persona Roles a adicionar
+   * @param personaRol el objeto de la persona Roles a adicionar
    * @return un Mono que emite el objeto ProductoRes correspondiente al producto modificado
    */ 
   @PostMapping("/{idProducto}/personas")
-  public Mono<ProductoRolesRes> postPersonaRolesByProductIdAndRolePersona(@PathVariable(name="idProducto") String idProducto, @Valid @RequestBody PersonaRoles personaRol){
+  public Mono<ProductoRolesRes> postPersonaRolesByProductIdAndRolePersona(
+      @PathVariable(name = "idProducto") String idProducto,
+      @Valid @RequestBody PersonaRoles personaRol) {
     return servProdApp.addPersonaRolesByProductIdAndRolePersona(idProducto, personaRol);
   }
   
