@@ -1,34 +1,39 @@
 package com.bestbank.productos.infrastructure.external.utis;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.reactive.function.client.WebClient.Builder;
+import org.springframework.http.HttpStatus;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * Clase que encapsula las llamadas a una API utilizando WebClient.
- * Proporciona métodos para realizar solicitudes HTTP a un servicio web externo.
- */
 @Slf4j
-public class WebClientApi {
+@Component
+public class WebApiClientService {
+
+  private final Builder restClient;
   
-  private static final WebClient webClient  = WebClient.builder().build();
+  public WebApiClientService(Builder cliente) {
+    this.restClient = cliente;
+  }
   
   /**
    * Realiza una solicitud GET a la URL especificada y devuelve un Mono que emite la 
    * respuesta esperada.
    *
+   * @param baseUrl      La URL base de resolucion de la peticion
    * @param url          La URL a la cual realizar la solicitud GET.
    * @param responseType El tipo de respuesta esperada.
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Mono que emite la respuesta esperada.
    */
-  public static <T> Mono<T> getMono(String url, Class<T> responseType, String errorId) {
-    log.info(url);
-    return webClient.get()
+  public <T> Mono<T> getMono (String baseUrl, String url, Class<T> responseType, String errorId) {
+    log.info(baseUrl+url);
+    return restClient.baseUrl(baseUrl).build()
+      .get()
       .uri(url)
       .retrieve()
       .bodyToMono(responseType)
@@ -44,14 +49,16 @@ public class WebClientApi {
    * Realiza una solicitud GET a la URL especificada y devuelve un Flux que emite la 
    * respuesta esperada.
    *
+   * @param baseUrl      La URL base de resolucion de la peticion
    * @param url          La URL a la cual realizar la solicitud GET.
    * @param responseType El tipo de respuesta esperada.
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Flux que emite la respuesta esperada.
    */
-  public static <T> Flux<T> getFlux(String url, Class<T> responseType, String errorId) {
+  public <T> Flux<T> getFlux (String baseUrl, String url, Class<T> responseType, String errorId) {
     log.info(url);
-    return webClient.get()
+    return restClient.baseUrl(baseUrl).build()
+      .get()
       .uri(url)
       .retrieve()
       .bodyToFlux(responseType)
@@ -62,6 +69,4 @@ public class WebClientApi {
                 url, statusCode, errorId));
       });
   }
-  
-
 }

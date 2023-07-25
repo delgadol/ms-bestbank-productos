@@ -1,0 +1,2 @@
+SET JAVA_HOME=C:\SDK\jdk-17
+mvnW clean verify sonar:sonar -Dsonar.projectKey=MS-BESTBANK-PRODUCTOS -Dsonar.projectName='MS-BESTBANK-PRODUCTOS' -Dsonar.host.url=http://192.168.1.113:9000 -Dsonar.token=sqp_a1d0845225a0dff88d631a1d3dbe1d8a7e1f4373

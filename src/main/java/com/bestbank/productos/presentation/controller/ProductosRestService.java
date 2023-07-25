@@ -45,7 +45,7 @@ public class ProductosRestService {
    * @param producto la información del producto a crear
    * @return un Mono que emite el objeto ProductoRes resultante
    */
-  @PostMapping("")
+  @PostMapping(path = {"" , "/"})
   public Mono<ProductoRes> postProduct(@Valid @RequestBody ProductoReq producto) {
     return servProdApp.postProduct(producto);
   }

@@ -21,7 +21,7 @@ import com.bestbank.productos.domain.model.Producto;
 import com.bestbank.productos.domain.model.ProductoCartera;
 import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
-import com.bestbank.productos.infrastructure.external.utis.WebClientApi;
+import com.bestbank.productos.infrastructure.external.utis.WebApiClientService;
 import com.bestbank.productos.infrastructure.utils.ModelMapperUtils;
 
 import reactor.core.publisher.Flux;
@@ -31,7 +31,10 @@ import reactor.core.publisher.Mono;
 public class ProductosApplication {
   
   @Value("${app.clientesApiUrl}")
-  private String clienteUrlTemp;
+  private String clienteUrl;
+  
+  @Value("${app.apiSimpleId}")
+  private String apiSimpleId;
   
   private final ProductosService servProd;
   
@@ -39,15 +42,18 @@ public class ProductosApplication {
   
   private final SaldosService servSaldo;
   
+  private final WebApiClientService webClientApi;
+  
   /**
    * Clase principal que inicia la aplicación de gestión de productos.
    */
   public ProductosApplication(ProductosService servProd, 
       CarteraProductosServices servCartera, 
-      SaldosService servSaldo) {
+      SaldosService servSaldo, WebApiClientService webClientApi ) {
     this.servProd = servProd;
     this.servCartera = servCartera;
     this.servSaldo = servSaldo;
+    this.webClientApi = webClientApi;
   }
 
   /**
@@ -179,7 +185,7 @@ public class ProductosApplication {
       .filter(prodFiltro1 -> prodFiltro1.getEstado().equalsIgnoreCase(
           ApplicationConstants.ESTADO_NORMAL))
       .flatMap(prodDbOk -> 
-        WebClientApi.getMono(String.format(clienteUrlTemp,
+        webClientApi.getMono(clienteUrl, String.format(apiSimpleId,
             prodDbOk.getCodigoPersona()), 
           ClienteRes.class, idProducto).flatMap(clienteRes -> {
             Producto prodModDb = ModelMapperUtils.map(prodDbOk, Producto.class);
@@ -289,7 +295,7 @@ public class ProductosApplication {
         .filter(prodFiltro1 -> 
         prodFiltro1.getEstado().equalsIgnoreCase(ApplicationConstants.ESTADO_NORMAL))
         .flatMap(prodDbOk -> 
-          WebClientApi.getMono(String.format(clienteUrlTemp, prodDbOk.getCodigoPersona()), 
+          webClientApi.getMono(clienteUrl, String.format(apiSimpleId, prodDbOk.getCodigoPersona()), 
             ClienteRes.class, idProducto).flatMap(clienteRes -> 
               Mono.just(prodDbOk)
             )
@@ -308,7 +314,7 @@ public class ProductosApplication {
    * @return Un Mono que emite la respuesta del cliente verificado
    */
   private Mono<ClienteRes> isClienteOk(String idCliente) {
-    return WebClientApi.getMono(String.format(clienteUrlTemp, idCliente), 
+    return webClientApi.getMono(clienteUrl, String.format(apiSimpleId, idCliente), 
         ClienteRes.class, String.format("COD: %s", idCliente));
   }
 
