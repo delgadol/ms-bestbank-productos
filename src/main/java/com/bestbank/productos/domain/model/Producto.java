@@ -1,18 +1,16 @@
 package com.bestbank.productos.domain.model;
 
+import com.bestbank.productos.domain.utils.GrupoProducto;
+import com.bestbank.productos.domain.utils.TipoCliente;
+import com.bestbank.productos.domain.utils.TipoProducto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.bestbank.productos.domain.utils.GrupoProducto;
-import com.bestbank.productos.domain.utils.TipoCliente;
-import com.bestbank.productos.domain.utils.TipoProducto;
-
-import lombok.Data;
 
 /**
  * Representa un producto.

@@ -1,13 +1,10 @@
 package com.bestbank.productos.infrastructure.external.utis;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,9 +18,7 @@ public class WebClientApiTool {
   
   protected static final Builder restClient = null;
   
-  
 
-  
   /**
    * Realiza una solicitud GET a la URL especificada y devuelve un Mono que emite la 
    * respuesta esperada.

@@ -12,7 +12,9 @@ public enum TipoProducto {
   CREM("Credito Empresarial"),
   CRTC("Tarjeta Credito"),
   CTPVIP("Cuenta VIP Personal"),
-  CTEPIME("Cuenta PYME Empresarial");
+  CTEPIME("Cuenta PYME Empresarial"),
+  CTYANKI("Cuenta YANKI"),
+  CTBCSOL("Cuenta BootCoin");
 
   private String descripcion;
   

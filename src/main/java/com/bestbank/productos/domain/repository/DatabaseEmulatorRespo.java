@@ -1,13 +1,12 @@
 package com.bestbank.productos.domain.repository;
 
+import com.bestbank.productos.domain.utils.GrupoProducto;
+import com.bestbank.productos.domain.utils.TipoProducto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.bestbank.productos.domain.utils.GrupoProducto;
-import com.bestbank.productos.domain.utils.TipoProducto;
 
 /**
  * Clase que simula un repositorio de base de datos para fines de emulación o pruebas.
@@ -145,7 +144,37 @@ public class DatabaseEmulatorRespo {
     List<TipoProducto> ctepymePrevios = Arrays.asList(TipoProducto.CRTC, TipoProducto.CTCC);
     ctepymeData.put("reqPrevios", ctepymePrevios);
     database.put("CTEPIME", ctvipData);
-      
+    
+    // CTYANKI
+    Map<String, Object> ctyankiData = new HashMap<>();
+    ctyankiData.put("comision", 0.0D);
+    ctyankiData.put("maxOperacionesMes", 0);
+    ctyankiData.put("costExtraOperacionesMes", 0.00D);
+    ctyankiData.put("minDiaMesOperacion", 0);
+    ctyankiData.put("tipoProducto", TipoProducto.CTYANKI);
+    ctyankiData.put("grupoProducto", GrupoProducto.PASIVOS);
+    ctyankiData.put("minSaldoMensual", 0.00D);
+    ctyankiData.put("costMinSaldoMensual", 0.00D);
+    ctyankiData.put("maxProdPersonal", 1);
+    ctyankiData.put("maxProdEmpresarial", 0);
+    ctyankiData.put("reqPrevios", new ArrayList<TipoProducto>());
+    database.put("CTYANKI", ctyankiData);
+    
+    // CTBCSOL
+    Map<String, Object> ctbcsolData = new HashMap<>();
+    ctbcsolData.put("comision", 0.0D);
+    ctbcsolData.put("maxOperacionesMes", 0);
+    ctbcsolData.put("costExtraOperacionesMes", 0.00D);
+    ctbcsolData.put("minDiaMesOperacion", 0);
+    ctbcsolData.put("tipoProducto", TipoProducto.CTBCSOL);
+    ctbcsolData.put("grupoProducto", GrupoProducto.PASIVOS);
+    ctbcsolData.put("minSaldoMensual", 0.00D);
+    ctbcsolData.put("costMinSaldoMensual", 0.00D);
+    ctbcsolData.put("maxProdPersonal", 1);
+    ctbcsolData.put("maxProdEmpresarial", 0);
+    ctbcsolData.put("reqPrevios", new ArrayList<TipoProducto>());
+    database.put("CTBCSOL", ctbcsolData);
+    
   }
 
   public Map<String, Object> getModelData(String modelName) {

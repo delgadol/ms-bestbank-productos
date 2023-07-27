@@ -1,5 +1,12 @@
 package com.bestbank.productos.presentation.controller;
 
+import com.bestbank.productos.application.ProductosApplication;
+import com.bestbank.productos.application.dto.req.ProductoModReq;
+import com.bestbank.productos.application.dto.req.ProductoReq;
+import com.bestbank.productos.application.dto.res.ProductoRes;
+import com.bestbank.productos.application.dto.res.ProductoRolesRes;
+import com.bestbank.productos.domain.model.PersonaRoles;
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.bestbank.productos.application.ProductosApplication;
-import com.bestbank.productos.application.dto.req.ProductoModReq;
-import com.bestbank.productos.application.dto.req.ProductoReq;
-import com.bestbank.productos.application.dto.res.ProductoRes;
-import com.bestbank.productos.application.dto.res.ProductoRolesRes;
-import com.bestbank.productos.domain.model.PersonaRoles;
-
-import jakarta.validation.Valid;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

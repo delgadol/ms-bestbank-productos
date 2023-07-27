@@ -1,10 +1,8 @@
 package com.bestbank.productos.application.dto.res;
 
+import com.bestbank.productos.domain.model.PersonaRoles;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.bestbank.productos.domain.model.PersonaRoles;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

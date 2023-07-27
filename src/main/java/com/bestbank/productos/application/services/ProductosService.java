@@ -1,12 +1,10 @@
 package com.bestbank.productos.application.services;
 
-import org.springframework.stereotype.Service;
-
 import com.bestbank.productos.domain.model.Producto;
 import com.bestbank.productos.domain.repository.ProductosRepository;
 import com.bestbank.productos.domain.utils.TipoProducto;
 import com.bestbank.productos.infrastructure.persistence.ProductosRepositoryImpl;
-
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

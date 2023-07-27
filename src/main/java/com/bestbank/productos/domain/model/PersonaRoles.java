@@ -1,9 +1,7 @@
 package com.bestbank.productos.domain.model;
 
-import java.io.Serializable;
-
 import com.bestbank.productos.domain.utils.TipoPersonaRol;
-
+import java.io.Serializable;
 import lombok.Data;
 
 /**

@@ -1,14 +1,11 @@
 package com.bestbank.productos.domain.model;
 
-import java.util.Date;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoProducto;
-
+import java.util.Date;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Representa el saldo de una entidad.

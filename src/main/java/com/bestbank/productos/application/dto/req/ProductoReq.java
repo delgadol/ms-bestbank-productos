@@ -2,7 +2,6 @@ package com.bestbank.productos.application.dto.req;
 
 
 import com.bestbank.productos.domain.utils.TipoProducto;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

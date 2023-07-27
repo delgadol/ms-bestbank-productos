@@ -1,9 +1,5 @@
 package com.bestbank.productos.application.services;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import com.bestbank.productos.application.utils.ApplicationConstants;
 import com.bestbank.productos.application.utils.BankFnUtils;
 import com.bestbank.productos.domain.model.Producto;
@@ -11,7 +7,9 @@ import com.bestbank.productos.domain.model.ProductoCartera;
 import com.bestbank.productos.domain.model.Saldo;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.domain.utils.TipoProducto;
-
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import reactor.core.publisher.Mono;
 
 /**

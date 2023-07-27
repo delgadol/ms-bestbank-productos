@@ -1,14 +1,12 @@
 package com.bestbank.productos.domain.model;
 
-import java.util.List;
-
-import org.springframework.data.annotation.Id;
-
 import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.domain.utils.TipoProducto;
-
+import java.util.List;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+
 
 /**
  * Clase que representa un producto de la cartera, relacionado con 

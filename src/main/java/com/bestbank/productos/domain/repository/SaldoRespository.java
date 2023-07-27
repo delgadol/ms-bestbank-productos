@@ -1,8 +1,7 @@
 package com.bestbank.productos.domain.repository;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-
 import com.bestbank.productos.domain.model.Saldo;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 /**
  * Interfaz que define el repositorio de saldos, que extiende ReactiveMongoRepository.

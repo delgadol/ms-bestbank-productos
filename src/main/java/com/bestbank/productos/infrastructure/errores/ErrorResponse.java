@@ -2,7 +2,6 @@ package com.bestbank.productos.infrastructure.errores;
 
 import java.util.Date;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

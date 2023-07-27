@@ -1,10 +1,8 @@
 package com.bestbank.productos.domain.repository;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-
 import com.bestbank.productos.domain.model.Producto;
 import com.bestbank.productos.domain.utils.TipoProducto;
-
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
