@@ -18,6 +18,7 @@ import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.infrastructure.external.utis.WebApiClientService;
 import com.bestbank.productos.infrastructure.utils.ModelMapperUtils;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -101,6 +102,7 @@ public class ProductosApplication {
                 nuevoProducto.setMinSaldoMensual(carteraProd.getMinSaldoMensual());
                 nuevoProducto.setCostExtraOperacionesMes(carteraProd.getCostExtraOperacionesMes());
                 nuevoProducto.setCostMinSaldoMensual(carteraProd.getCostMinSaldoMensual());
+                nuevoProducto.setPersonaRoles(new ArrayList<>());
                 /* 
                  * Mapeamos los Campos Basicos 
                  * **/

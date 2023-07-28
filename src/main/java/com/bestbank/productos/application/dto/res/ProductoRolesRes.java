@@ -1,7 +1,6 @@
 package com.bestbank.productos.application.dto.res;
 
 import com.bestbank.productos.domain.model.PersonaRoles;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,14 +14,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ProductoRolesRes extends ProductoRes {
   
-
   
   private Double minSaldoMensual;
   
   private Double costMinSaldoMensual;
   
-  private List<PersonaRoles> personaRoles = new ArrayList<>();
-  
+  private List<PersonaRoles> personaRoles;
   
   
 

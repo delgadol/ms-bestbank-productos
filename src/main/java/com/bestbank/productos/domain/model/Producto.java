@@ -4,7 +4,6 @@ import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.domain.utils.TipoProducto;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
@@ -51,7 +50,7 @@ public class Producto implements Serializable {
   
   private Double costMinSaldoMensual;
   
-  private List<PersonaRoles> personaRoles = new ArrayList<>();
+  private List<PersonaRoles> personaRoles;
   
   private Date fechaCreacion;
   

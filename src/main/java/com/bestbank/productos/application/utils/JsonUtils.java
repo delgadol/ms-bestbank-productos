@@ -37,13 +37,13 @@ public class JsonUtils {
    * @throws IOException 
    */
   public static <T> T jsonToObject(String jsonStr, Class<T> clazz) {
-      try {
-        return objectMapper.readValue(jsonStr, clazz);
-      } catch (JsonMappingException e) {
-        e.printStackTrace();
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }      
-      return null;
+    try {
+      return objectMapper.readValue(jsonStr, clazz);
+    } catch (JsonMappingException e) {
+      e.printStackTrace();
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }      
+    return null;
   }
 }
