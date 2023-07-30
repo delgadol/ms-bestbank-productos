@@ -18,15 +18,16 @@ import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.infrastructure.external.utis.WebApiClientService;
 import com.bestbank.productos.infrastructure.utils.ModelMapperUtils;
-import io.github.resilience4j.circuitbreaker.CircuitBreaker;
-import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 public class ProductosApplication {
   
@@ -290,7 +291,7 @@ public class ProductosApplication {
    * @return Un Mono que emite el producto verificado si cumple con las validaciones del cliente.
    */
 
-  private Mono<Producto> checkProductoClientOk (String idProducto) {
+  private Mono<Producto> checkProductoClientOk(String idProducto) {
     return servProd.findFirstByIdAndIndEliminado(idProducto, 
         ApplicationConstants.REGISTRO_NO_ELIMINADO)
         .filter(prodFiltro1 -> 
@@ -316,7 +317,12 @@ public class ProductosApplication {
    */
   private Mono<ClienteRes> isClienteOk(String idCliente) {
     return webClientApi.getMono(clienteUrl, String.format(apiSimpleId, idCliente), 
-        ClienteRes.class, String.format("COD: %s", idCliente));
+          ClienteRes.class, String.format("COD: %s", idCliente));
   }
 
+//  private Mono<ClienteRes> defaultClienteRes(Throwable error) {
+//    log.info("Ejecutando Callback");
+//    return Mono.just(new ClienteRes());
+//    
+//  }
 }

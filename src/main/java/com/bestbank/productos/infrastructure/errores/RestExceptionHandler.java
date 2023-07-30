@@ -18,7 +18,7 @@ import org.springframework.web.reactive.result.method.annotation.ResponseEntityE
  * Esta clase extiende de ResponseEntityExceptionHandler para aprovechar las funcionalidades de 
  * manejo de excepciones de Spring.
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler
   protected ResponseEntity<ErrorResponse> handleException(NoSuchElementException exc) {

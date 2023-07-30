@@ -1,5 +1,7 @@
 package com.bestbank.productos.infrastructure.external.utis;
 
+import com.bestbank.productos.application.dto.res.ClienteRes;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,7 @@ public class WebApiClientService {
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Mono que emite la respuesta esperada.
    */
+  @CircuitBreaker(name = "mockService", fallbackMethod = "defaultClienteRes")
   public <T> Mono<T> getMono(String baseUrl, String url,
       Class<T> responseType, String errorId) {
     log.info(baseUrl + url);
@@ -44,12 +47,13 @@ public class WebApiClientService {
       });
   }
   
-  
-  public Mono<Object> callbakFuncHelper() {
-    log.info("Fallback - Respost");
-    return Mono.empty();
+  private Mono<ClienteRes> defaultClienteRes(Throwable error) {
+    log.info("Ejecutando Callback");
+    return Mono.just(new ClienteRes());
+    
   }
-
+  
+  
   /**
    * Realiza una solicitud GET a la URL especificada y devuelve un Flux que emite la 
    * respuesta esperada.
