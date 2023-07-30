@@ -18,7 +18,6 @@ import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.infrastructure.external.utis.WebApiClientService;
 import com.bestbank.productos.infrastructure.utils.ModelMapperUtils;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -320,9 +319,4 @@ public class ProductosApplication {
           ClienteRes.class, String.format("COD: %s", idCliente));
   }
 
-//  private Mono<ClienteRes> defaultClienteRes(Throwable error) {
-//    log.info("Ejecutando Callback");
-//    return Mono.just(new ClienteRes());
-//    
-//  }
 }

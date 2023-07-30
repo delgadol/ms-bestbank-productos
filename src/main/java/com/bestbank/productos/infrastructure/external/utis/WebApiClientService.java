@@ -53,6 +53,7 @@ public class WebApiClientService {
    * @param error es el error proveniente del circuito
    * @return Con un cliente vacio
    */
+  @SuppressWarnings("unused")
   private Mono<ClienteRes> defaultClienteRes(Throwable error) {
     log.info("Ejecutando Callback");
     return Mono.just(new ClienteRes());

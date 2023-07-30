@@ -14,6 +14,20 @@ import java.util.Map;
 public class DatabaseEmulatorRespo {
   
   private Map<String, Map<String, Object>> database;
+  
+  private static final String COMISION = "comision";
+  private static final String MAX_OPERACIONES_MES = "maxOperacionesMes";
+  private static final String COST_EXTRA_OPERACIONES_MES = "costExtraOperacionesMes";
+  private static final String MIN_DIA_MES_OPERACION = "minDiaMesOperacion";
+  private static final String TIPO_PRODUCTO = "tipoProducto";
+  private static final String GRUPO_PRODUCTO = "grupoProducto";
+  private static final String MIN_SALDO_MENSUAL = "minSaldoMensual";
+  private static final String MAX_PROD_PERSONAL = "maxProdPersonal";
+  private static final String COSTO_MIN_SALDO_MENSUAL = "costMinSaldoMensual";
+  private static final String MAX_PROD_EMPRESARIAL = "maxProdEmpresarial";
+  private static final String REQ_PREVIOS = "reqPrevios";
+      
+  
 
   public DatabaseEmulatorRespo() {
     database = new HashMap<>();
@@ -24,155 +38,155 @@ public class DatabaseEmulatorRespo {
     
     // CTAA
     Map<String, Object> ctaaData = new HashMap<>();
-    ctaaData.put("comision", 0.0D);
-    ctaaData.put("maxOperacionesMes", 4);
-    ctaaData.put("costExtraOperacionesMes", 16.00D);
-    ctaaData.put("minDiaMesOperacion", 0);
-    ctaaData.put("tipoProducto", TipoProducto.CTAA);
-    ctaaData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctaaData.put("minSaldoMensual", 0.00D);
-    ctaaData.put("maxProdPersonal", 1);
-    ctaaData.put("costMinSaldoMensual", 0.0D);
-    ctaaData.put("maxProdEmpresarial", 0);
-    ctaaData.put("reqPrevios", new ArrayList<TipoProducto>());      
+    ctaaData.put(COMISION, 0.0D);
+    ctaaData.put(MAX_OPERACIONES_MES, 4);
+    ctaaData.put(COST_EXTRA_OPERACIONES_MES, 16.00D);
+    ctaaData.put(MIN_DIA_MES_OPERACION, 0);
+    ctaaData.put(TIPO_PRODUCTO, TipoProducto.CTAA);
+    ctaaData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctaaData.put(MIN_SALDO_MENSUAL, 0.00D);
+    ctaaData.put(MAX_PROD_PERSONAL, 1);
+    ctaaData.put(COSTO_MIN_SALDO_MENSUAL, 0.0D);
+    ctaaData.put(MAX_PROD_EMPRESARIAL, 0);
+    ctaaData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());      
     database.put("CTAA", ctaaData);
       
 
     // CTCC
     Map<String, Object> ctccData = new HashMap<>();
-    ctccData.put("comision", 0.0D);
-    ctccData.put("maxOperacionesMes", Integer.MAX_VALUE);
-    ctccData.put("costExtraOperacionesMes", 0.00D);
-    ctccData.put("minDiaMesOperacion", 0);
-    ctccData.put("tipoProducto", TipoProducto.CTCC);
-    ctccData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctccData.put("minSaldoMensual", 0.00D);
-    ctccData.put("costMinSaldoMensual", 0.00D);
-    ctccData.put("maxProdPersonal", 1);
-    ctccData.put("maxProdEmpresarial", Integer.MAX_VALUE);
-    ctccData.put("reqPrevios", new ArrayList<TipoProducto>());
+    ctccData.put(COMISION, 0.0D);
+    ctccData.put(MAX_OPERACIONES_MES, Integer.MAX_VALUE);
+    ctccData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    ctccData.put(MIN_DIA_MES_OPERACION, 0);
+    ctccData.put(TIPO_PRODUCTO, TipoProducto.CTCC);
+    ctccData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctccData.put(MIN_SALDO_MENSUAL, 0.00D);
+    ctccData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    ctccData.put(MAX_PROD_PERSONAL, 1);
+    ctccData.put(MAX_PROD_EMPRESARIAL, Integer.MAX_VALUE);
+    ctccData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CTCC", ctccData);
 
     // DPFJ
     Map<String, Object> dpfjData = new HashMap<>();
-    dpfjData.put("comision", 0.0D);
-    dpfjData.put("maxOperacionesMes", Integer.MAX_VALUE);
-    dpfjData.put("costExtraOperacionesMes", 0.00D);
-    dpfjData.put("minDiaMesOperacion", 28);
-    dpfjData.put("tipoProducto", TipoProducto.DPFJ);
-    dpfjData.put("grupoProducto", GrupoProducto.PASIVOS);
-    dpfjData.put("minSaldoMensual", 0.00D);
-    dpfjData.put("costMinSaldoMensual", 0.00D);
-    dpfjData.put("maxProdPersonal", 1);
-    dpfjData.put("maxProdEmpresarial", 0);
-    dpfjData.put("reqPrevios", new ArrayList<TipoProducto>());
+    dpfjData.put(COMISION, 0.0D);
+    dpfjData.put(MAX_OPERACIONES_MES, Integer.MAX_VALUE);
+    dpfjData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    dpfjData.put(MIN_DIA_MES_OPERACION, 28);
+    dpfjData.put(TIPO_PRODUCTO, TipoProducto.DPFJ);
+    dpfjData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    dpfjData.put(MIN_SALDO_MENSUAL, 0.00D);
+    dpfjData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    dpfjData.put(MAX_PROD_PERSONAL, 1);
+    dpfjData.put(MAX_PROD_EMPRESARIAL, 0);
+    dpfjData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("DPFJ", dpfjData);
 
     // CRPS
     Map<String, Object> crpsData = new HashMap<>();
-    crpsData.put("comision", 0.0D);
-    crpsData.put("maxOperacionesMes", Integer.MAX_VALUE);
-    crpsData.put("costExtraOperacionesMes", 0.00D);
-    crpsData.put("minDiaMesOperacion", 28);
-    crpsData.put("tipoProducto", TipoProducto.CRPS);
-    crpsData.put("grupoProducto", GrupoProducto.ACTIVOS);
-    crpsData.put("minSaldoMensual", 0.00D);
-    crpsData.put("costMinSaldoMensual", 0.00D);
-    crpsData.put("maxProdPersonal", 0);
-    crpsData.put("maxProdEmpresarial", 0);
-    crpsData.put("reqPrevios", new ArrayList<TipoProducto>());
+    crpsData.put(COMISION, 0.0D);
+    crpsData.put(MAX_OPERACIONES_MES, Integer.MAX_VALUE);
+    crpsData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    crpsData.put(MIN_DIA_MES_OPERACION, 28);
+    crpsData.put(TIPO_PRODUCTO, TipoProducto.CRPS);
+    crpsData.put(GRUPO_PRODUCTO, GrupoProducto.ACTIVOS);
+    crpsData.put(MIN_SALDO_MENSUAL, 0.00D);
+    crpsData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    crpsData.put(MAX_PROD_PERSONAL, 0);
+    crpsData.put(MAX_PROD_EMPRESARIAL, 0);
+    crpsData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CRPS", crpsData);
 
     // CREM
     Map<String, Object> crenData = new HashMap<>();
-    crenData.put("comision", 0.0D);
-    crenData.put("maxOperacionesMes", Integer.MAX_VALUE);
-    crenData.put("costExtraOperacionesMes", 0.00D);
-    crenData.put("minDiaMesOperacion", 0);
-    crenData.put("tipoProducto", TipoProducto.CREM);
-    crenData.put("grupoProducto", GrupoProducto.ACTIVOS);
-    crenData.put("minSaldoMensual", 0.00D);
-    crenData.put("costMinSaldoMensual", 0.00D);
-    crenData.put("maxProdPersonal", 0);
-    crenData.put("maxProdEmpresarial", Integer.MAX_VALUE);
-    crenData.put("reqPrevios", new ArrayList<TipoProducto>());
+    crenData.put(COMISION, 0.0D);
+    crenData.put(MAX_OPERACIONES_MES, Integer.MAX_VALUE);
+    crenData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    crenData.put(MIN_DIA_MES_OPERACION, 0);
+    crenData.put(TIPO_PRODUCTO, TipoProducto.CREM);
+    crenData.put(GRUPO_PRODUCTO, GrupoProducto.ACTIVOS);
+    crenData.put(MIN_SALDO_MENSUAL, 0.00D);
+    crenData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    crenData.put(MAX_PROD_PERSONAL, 0);
+    crenData.put(MAX_PROD_EMPRESARIAL, Integer.MAX_VALUE);
+    crenData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CREM", crenData);
 
     // CRTC
     Map<String, Object> crtcData = new HashMap<>();
-    crtcData.put("comision", 0.0D);
-    crtcData.put("maxOperacionesMes", Integer.MAX_VALUE);
-    crtcData.put("costExtraOperacionesMes", 0.00D);
-    crtcData.put("minDiaMesOperacion", 0);
-    crtcData.put("tipoProducto", TipoProducto.CRTC);
-    crtcData.put("grupoProducto", GrupoProducto.ACTIVOS);
-    crtcData.put("minSaldoMensual", 0.00D);
-    crtcData.put("costMinSaldoMensual", 0.00D);
-    crtcData.put("maxProdPersonal", Integer.MAX_VALUE);
-    crtcData.put("maxProdEmpresarial", Integer.MAX_VALUE);
-    crtcData.put("reqPrevios", new ArrayList<TipoProducto>());
+    crtcData.put(COMISION, 0.0D);
+    crtcData.put(MAX_OPERACIONES_MES, Integer.MAX_VALUE);
+    crtcData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    crtcData.put(MIN_DIA_MES_OPERACION, 0);
+    crtcData.put(TIPO_PRODUCTO, TipoProducto.CRTC);
+    crtcData.put(GRUPO_PRODUCTO, GrupoProducto.ACTIVOS);
+    crtcData.put(MIN_SALDO_MENSUAL, 0.00D);
+    crtcData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    crtcData.put(MAX_PROD_PERSONAL, Integer.MAX_VALUE);
+    crtcData.put(MAX_PROD_EMPRESARIAL, Integer.MAX_VALUE);
+    crtcData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CRTC", crtcData);
 
     // CTPVIP
     Map<String, Object> ctvipData = new HashMap<>();
-    ctvipData.put("comision", 0.0D);
-    ctvipData.put("maxOperacionesMes", 20);
-    ctvipData.put("costExtraOperacionesMes", 16.00D);
-    ctvipData.put("minDiaMesOperacion", 0);
-    ctvipData.put("tipoProducto", TipoProducto.CRTC);
-    ctvipData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctvipData.put("minSaldoMensual", 500.0D);
-    ctvipData.put("costMinSaldoMensual", 5.00D);
-    ctvipData.put("maxProdPersonal", Integer.MAX_VALUE);
-    ctvipData.put("maxProdEmpresarial", 0);
+    ctvipData.put(COMISION, 0.0D);
+    ctvipData.put(MAX_OPERACIONES_MES, 20);
+    ctvipData.put(COST_EXTRA_OPERACIONES_MES, 16.00D);
+    ctvipData.put(MIN_DIA_MES_OPERACION, 0);
+    ctvipData.put(TIPO_PRODUCTO, TipoProducto.CRTC);
+    ctvipData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctvipData.put(MIN_SALDO_MENSUAL, 500.0D);
+    ctvipData.put(COSTO_MIN_SALDO_MENSUAL, 5.00D);
+    ctvipData.put(MAX_PROD_PERSONAL, Integer.MAX_VALUE);
+    ctvipData.put(MAX_PROD_EMPRESARIAL, 0);
     List<TipoProducto> ctvipPrevios = Arrays.asList(TipoProducto.CRTC);
-    ctvipData.put("reqPrevios", ctvipPrevios);
+    ctvipData.put(REQ_PREVIOS, ctvipPrevios);
     database.put("CTPVIP", ctvipData);
       
     // CTEPIME
     Map<String, Object> ctepymeData = new HashMap<>();
-    ctepymeData.put("comision", 0.0D);
-    ctepymeData.put("maxOperacionesMes", 20);
-    ctepymeData.put("costExtraOperacionesMes", 16.00D);
-    ctepymeData.put("minDiaMesOperacion", 0);
-    ctepymeData.put("tipoProducto", TipoProducto.CRTC);
-    ctepymeData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctepymeData.put("minSaldoMensual", 0.00D);
-    ctepymeData.put("costMinSaldoMensual", 0.00D);
-    ctepymeData.put("maxProdPersonal", 0);
-    ctepymeData.put("maxProdEmpresarial", Integer.MAX_VALUE);
+    ctepymeData.put(COMISION, 0.0D);
+    ctepymeData.put(MAX_OPERACIONES_MES, 20);
+    ctepymeData.put(COST_EXTRA_OPERACIONES_MES, 16.00D);
+    ctepymeData.put(MIN_DIA_MES_OPERACION, 0);
+    ctepymeData.put(TIPO_PRODUCTO, TipoProducto.CRTC);
+    ctepymeData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctepymeData.put(MIN_SALDO_MENSUAL, 0.00D);
+    ctepymeData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    ctepymeData.put(MAX_PROD_PERSONAL, 0);
+    ctepymeData.put(MAX_PROD_EMPRESARIAL, Integer.MAX_VALUE);
     List<TipoProducto> ctepymePrevios = Arrays.asList(TipoProducto.CRTC, TipoProducto.CTCC);
-    ctepymeData.put("reqPrevios", ctepymePrevios);
+    ctepymeData.put(REQ_PREVIOS, ctepymePrevios);
     database.put("CTEPIME", ctvipData);
     
     // CTYANKI
     Map<String, Object> ctyankiData = new HashMap<>();
-    ctyankiData.put("comision", 0.0D);
-    ctyankiData.put("maxOperacionesMes", 0);
-    ctyankiData.put("costExtraOperacionesMes", 0.00D);
-    ctyankiData.put("minDiaMesOperacion", 0);
-    ctyankiData.put("tipoProducto", TipoProducto.CTYANKI);
-    ctyankiData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctyankiData.put("minSaldoMensual", 0.00D);
-    ctyankiData.put("costMinSaldoMensual", 0.00D);
-    ctyankiData.put("maxProdPersonal", 1);
-    ctyankiData.put("maxProdEmpresarial", 0);
-    ctyankiData.put("reqPrevios", new ArrayList<TipoProducto>());
+    ctyankiData.put(COMISION, 0.0D);
+    ctyankiData.put(MAX_OPERACIONES_MES, 0);
+    ctyankiData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    ctyankiData.put(MIN_DIA_MES_OPERACION, 0);
+    ctyankiData.put(TIPO_PRODUCTO, TipoProducto.CTYANKI);
+    ctyankiData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctyankiData.put(MIN_SALDO_MENSUAL, 0.00D);
+    ctyankiData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    ctyankiData.put(MAX_PROD_PERSONAL, 1);
+    ctyankiData.put(MAX_PROD_EMPRESARIAL, 0);
+    ctyankiData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CTYANKI", ctyankiData);
     
     // CTBCSOL
     Map<String, Object> ctbcsolData = new HashMap<>();
-    ctbcsolData.put("comision", 0.0D);
-    ctbcsolData.put("maxOperacionesMes", 0);
-    ctbcsolData.put("costExtraOperacionesMes", 0.00D);
-    ctbcsolData.put("minDiaMesOperacion", 0);
-    ctbcsolData.put("tipoProducto", TipoProducto.CTBCSOL);
-    ctbcsolData.put("grupoProducto", GrupoProducto.PASIVOS);
-    ctbcsolData.put("minSaldoMensual", 0.00D);
-    ctbcsolData.put("costMinSaldoMensual", 0.00D);
-    ctbcsolData.put("maxProdPersonal", 1);
-    ctbcsolData.put("maxProdEmpresarial", 0);
-    ctbcsolData.put("reqPrevios", new ArrayList<TipoProducto>());
+    ctbcsolData.put(COMISION, 0.0D);
+    ctbcsolData.put(MAX_OPERACIONES_MES, 0);
+    ctbcsolData.put(COST_EXTRA_OPERACIONES_MES, 0.00D);
+    ctbcsolData.put(MIN_DIA_MES_OPERACION, 0);
+    ctbcsolData.put(TIPO_PRODUCTO, TipoProducto.CTBCSOL);
+    ctbcsolData.put(GRUPO_PRODUCTO, GrupoProducto.PASIVOS);
+    ctbcsolData.put(MIN_SALDO_MENSUAL, 0.00D);
+    ctbcsolData.put(COSTO_MIN_SALDO_MENSUAL, 0.00D);
+    ctbcsolData.put(MAX_PROD_PERSONAL, 1);
+    ctbcsolData.put(MAX_PROD_EMPRESARIAL, 0);
+    ctbcsolData.put(REQ_PREVIOS, new ArrayList<TipoProducto>());
     database.put("CTBCSOL", ctbcsolData);
     
   }

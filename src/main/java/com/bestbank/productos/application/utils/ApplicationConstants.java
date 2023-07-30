@@ -5,6 +5,8 @@ package com.bestbank.productos.application.utils;
  */
 public class ApplicationConstants {
   
+  private ApplicationConstants() {}
+  
   public static final Integer REGISTRO_ELIMINADO = 1;
   
   public static final Integer REGISTRO_NO_ELIMINADO = 0;

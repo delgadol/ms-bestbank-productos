@@ -16,6 +16,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class WebClientApiTool {
   
+  private WebClientApiTool() {}
+  
   protected static final Builder restClient = null;
   
 
