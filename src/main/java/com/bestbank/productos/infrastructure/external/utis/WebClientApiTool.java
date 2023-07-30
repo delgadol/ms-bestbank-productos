@@ -29,8 +29,9 @@ public class WebClientApiTool {
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Mono que emite la respuesta esperada.
    */
-  public static <T> Mono<T> getMono (String baseUrl, String url, Class<T> responseType, String errorId) {
-    log.info(baseUrl+url);
+  public static <T> Mono<T> getMono(String baseUrl, String url,
+      Class<T> responseType, String errorId) {
+    log.info(baseUrl + url);
     return restClient.baseUrl(baseUrl).build()
       .get()
       .uri(url)
@@ -54,7 +55,8 @@ public class WebClientApiTool {
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Flux que emite la respuesta esperada.
    */
-  public static <T> Flux<T> getFlux (String baseUrl, String url, Class<T> responseType, String errorId) {
+  public static <T> Flux<T> getFlux(String baseUrl, String url,
+      Class<T> responseType, String errorId) {
     log.info(url);
     return restClient.baseUrl(baseUrl).build()
       .get()

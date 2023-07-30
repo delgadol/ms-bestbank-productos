@@ -28,8 +28,9 @@ public class WebApiClientService {
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Mono que emite la respuesta esperada.
    */
-  public <T> Mono<T> getMono (String baseUrl, String url, Class<T> responseType, String errorId) {
-    log.info(baseUrl+url);
+  public <T> Mono<T> getMono(String baseUrl, String url,
+      Class<T> responseType, String errorId) {
+    log.info(baseUrl + url);
     return restClient.baseUrl(baseUrl).build()
       .get()
       .uri(url)
@@ -42,6 +43,12 @@ public class WebApiClientService {
                 statusCode, errorId));
       });
   }
+  
+  
+  public Mono<Object> callbakFuncHelper() {
+    log.info("Fallback - Respost");
+    return Mono.empty();
+  }
 
   /**
    * Realiza una solicitud GET a la URL especificada y devuelve un Flux que emite la 
@@ -53,7 +60,8 @@ public class WebApiClientService {
    * @param errorId      Identificador de error personalizado para la gestión de excepciones.
    * @return Un Flux que emite la respuesta esperada.
    */
-  public <T> Flux<T> getFlux (String baseUrl, String url, Class<T> responseType, String errorId) {
+  public <T> Flux<T> getFlux(String baseUrl, String url, 
+      Class<T> responseType, String errorId) {
     log.info(url);
     return restClient.baseUrl(baseUrl).build()
       .get()

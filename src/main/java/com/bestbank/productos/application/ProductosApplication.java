@@ -18,6 +18,8 @@ import com.bestbank.productos.domain.utils.GrupoProducto;
 import com.bestbank.productos.domain.utils.TipoCliente;
 import com.bestbank.productos.infrastructure.external.utis.WebApiClientService;
 import com.bestbank.productos.infrastructure.utils.ModelMapperUtils;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +49,7 @@ public class ProductosApplication {
    */
   public ProductosApplication(ProductosService servProd, 
       CarteraProductosServices servCartera, 
-      SaldosService servSaldo, WebApiClientService webClientApi ) {
+      SaldosService servSaldo, WebApiClientService webClientApi) {
     this.servProd = servProd;
     this.servCartera = servCartera;
     this.servSaldo = servSaldo;
