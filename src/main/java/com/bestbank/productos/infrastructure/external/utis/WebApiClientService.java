@@ -47,6 +47,12 @@ public class WebApiClientService {
       });
   }
   
+  /**
+   * Funcion por defecto para manejo del CircuitBraker
+   * 
+   * @param error es el error proveniente del circuito
+   * @return Con un cliente vacio
+   */
   private Mono<ClienteRes> defaultClienteRes(Throwable error) {
     log.info("Ejecutando Callback");
     return Mono.just(new ClienteRes());
