@@ -17,9 +17,16 @@ public class ProductoRegistradoProducer {
   private KafkaTemplate<String, String> kafkaTemplate;
   
   public void enviarProductosResgistrado(ProductoBrokerRes producto) {
+    String[] idCtrlChanel = producto.getCodCtrlBroker().split(":");
+    String kafKaChanel = KAFKA_TOPIC;
+    if (idCtrlChanel.length>1) {
+      producto.setCodCtrlBroker(idCtrlChanel[0]);
+      kafKaChanel = idCtrlChanel[1];
+    }
+    final String kafkaTopic = kafKaChanel;
     String jsonProductoBrokerReq = JsonUtils.objectToJson(producto);
     log.info("cola >>" + jsonProductoBrokerReq);
-    this.kafkaTemplate.send(KAFKA_TOPIC, jsonProductoBrokerReq);
+    this.kafkaTemplate.send(kafkaTopic, jsonProductoBrokerReq);
     
   }
 
